@@ -66,7 +66,7 @@ const exp = {
   postProcess: function(rawLog) {
     const _log = rawLog
     _log.severity = rawLog.level
-    _log.httpRequest = Object.assign(rawLog.req, rawLog.res)
+    _log.httpRequest = Object.assign(rawLog.req || {}, rawLog.res || {})
     _log.timestamp = rawLog.time
 
     return _log
