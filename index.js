@@ -23,7 +23,6 @@ function reqSerializer(req) {
 
   _req.headers = req.headers
   _req.id = (typeof req.id === 'function' ? req.id() : (req.id || (req.info ? req.info.id : undefined)))
-  _req.raw = req.raw || req
 
   return _req
 }
@@ -33,7 +32,7 @@ function resSerializer (res) {
     "status": res.statusCode,
   }
   _res.headers = res._headers
-  _res.raw = res
+
   return _res
 }
 
