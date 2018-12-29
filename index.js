@@ -13,7 +13,7 @@ const PINO_TO_STACKDRIVER = {
 
 function reqSerializer(req) {
   var connection = req.info || req.connection
-  _req = {
+  const _req = {
     "requestMethod": req.method,
     "requestUrl": req.url ? (req.url.path || req.url) : "",
     "userAgent": req.headers["user-agent"],
