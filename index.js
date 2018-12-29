@@ -2,14 +2,24 @@
 
 var std_serial = require('pino-std-serializers')
 
-const PINO_TO_STACKDRIVER = {
-  10: 'DEBUG',
-  20: 'DEBUG',
-  30: 'INFO',
-  40: 'WARNING',
-  50: 'ERROR',
-  60: 'CRITICAL',
-};
+const levels = {
+  labels: {
+    '10': 'DEBUG',
+    '20': 'DEBUG',
+    '30': 'INFO',
+    '40': 'WARNING',
+    '50': 'ERROR',
+    '60': 'CRITICAL',
+  },
+  values: {
+    fatal: 60,
+    error: 50,
+    warn: 40,
+    info: 30,
+    debug: 20,
+    trace: 10
+  }
+}
 
 function reqSerializer(req) {
   var connection = req.info || req.connection
@@ -52,5 +62,5 @@ module.exports = {
   },
   req: reqSerializer,
   res: resSerializer,
-  levelMap: PINO_TO_STACKDRIVER,
+  levels,
 }
