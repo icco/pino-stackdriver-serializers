@@ -53,5 +53,5 @@ module.exports = {
   },
   req: reqSerializer,
   res: resSerializer,
-  levelMap: PINO_TO_STACKSRIVER,
+  levelMap: PINO_TO_STACKDRIVER,
 }
