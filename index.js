@@ -63,14 +63,14 @@ const exp = {
   req: reqSerializer,
   res: resSerializer,
   levels,
-}
-exp[Symbol.for('pino.*')] = function(rawLog) {
-  const _log = rawLog
-  _log.severity = rawLog.level
-  _log.httpRequest = Object.assign(rawLog.req, rawLog.res)
-  _log.timestamp = rawLog.time
+  postProcess: function(rawLog) {
+    const _log = rawLog
+    _log.severity = rawLog.level
+    _log.httpRequest = Object.assign(rawLog.req, rawLog.res)
+    _log.timestamp = rawLog.time
 
-  return _log
+    return _log
+  }
 }
 
 module.exports = exp
