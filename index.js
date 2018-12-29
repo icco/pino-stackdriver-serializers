@@ -40,7 +40,7 @@ function resSerializer (res) {
 
 // https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry
 module.exports = {
-  err: std_serial.err
+  err: std_serial.err,
   mapHttpRequest: function(req) {
     return {
       httpRequest: reqSerializer(req)
@@ -50,7 +50,7 @@ module.exports = {
     return {
       httpRequest: resSerializer(res)
     }
-  }
+  },
   req: reqSerializer,
   res: resSerializer,
   levelMap: PINO_TO_STACKSRIVER,
