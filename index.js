@@ -63,7 +63,7 @@ module.exports = {
   req: reqSerializer,
   res: resSerializer,
   levels,
-  Symbol.for('pino.*'): function(rawLog) {
+  'pino.*': function(rawLog) {
     const _log = rawLog
     _log.severity = rawLog.level
     _log.httpRequest = rawLog.req + rawLog.res
