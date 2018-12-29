@@ -48,7 +48,7 @@ function resSerializer (res) {
 
 
 // https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry
-module.exports = {
+const exp = {
   err: std_serial.err,
   mapHttpRequest: function(req) {
     return {
@@ -63,11 +63,14 @@ module.exports = {
   req: reqSerializer,
   res: resSerializer,
   levels,
-  'pino.*': function(rawLog) {
-    const _log = rawLog
-    _log.severity = rawLog.level
-    _log.httpRequest = rawLog.req + rawLog.res
-
-    return _log
-  }
 }
+exp[Symbol.for('pino.*')] = function(rawLog) {
+  const _log = rawLog
+  _log.severity = rawLog.level
+  _log.httpRequest = rawLog.req + rawLog.res
+  _log.timestamp = rawLog.time
+
+  return _log
+}
+
+module.exports = exp
