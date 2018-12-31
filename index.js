@@ -38,10 +38,6 @@ function reqSerializer(req) {
   };
 
   _req.headers = req.headers;
-  _req.id =
-    typeof req.id === "function"
-      ? req.id()
-      : req.id || (req.info ? req.info.id : undefined);
 
   return _req;
 }
