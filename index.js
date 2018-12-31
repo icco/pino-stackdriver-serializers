@@ -52,7 +52,6 @@ function resSerializer(res) {
 // https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry
 function sdPrettifier(options) {
   return function prettifier(inputData) {
-    console.log("called!")
     let logObject;
     if (typeof inputData === "string") {
       const parsedData = JSON.parse(inputData);
