@@ -33,7 +33,7 @@ function reqSerializer(req) {
     requestMethod: req.method,
     requestUrl: req.url ? req.url.path || req.url : "",
     userAgent: req.headers["user-agent"],
-    remoteIp: connection.remoteAddress,
+    remoteIp: connection && connection.remoteAddress,
     referer: req.headers["referer"]
   };
 
@@ -49,7 +49,7 @@ function reqSerializer(req) {
 function resSerializer(res) {
   const _res = {
     status: res.statusCode.toString(),
-    responseSize: res._headers["content-length"]
+    responseSize: res._headers && res._headers["content-length"]
   };
   _res.headers = res._headers;
 
