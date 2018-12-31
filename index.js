@@ -81,10 +81,12 @@ function sdPrettifier(options) {
       };
       delete logObject.res;
       delete logObject.req;
+      delete logObject.responseTime;
     }
 
     logObject.message = logObject.msg;
     delete logObject.msg;
+    delete logObject.v;
 
     return JSON.stringify(logObject) + "\n";
   };
