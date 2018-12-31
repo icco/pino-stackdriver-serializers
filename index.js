@@ -75,11 +75,7 @@ function sdPrettifier(options) {
         resSerializer(logObject.res)
       );
       httpRequest.latency = `${logObject.responseTime / 1e3}s`;
-      logObject.context = {
-        data: {
-          httpRequest
-        }
-      };
+      logObject.httpRequest = httpRequest;
       delete logObject.res;
       delete logObject.req;
       delete logObject.responseTime;
