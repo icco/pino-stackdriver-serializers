@@ -70,6 +70,7 @@ function sdPrettifier(options) {
 
     logObject.severity = levels.labels[logObject.level];
     logObject.timestamp = logObject.time;
+    delete logObject.time;
 
     let httpRequest;
     if (logObject.req && logObject.res) {
@@ -77,18 +78,18 @@ function sdPrettifier(options) {
         reqSerializer(logObject.req),
         resSerializer(logObject.res)
       );
-      httpRequest.latency = `${Math.floor(logObject.responseTime / 1e3)}s`;
+      httpRequest.latency = `${logObject.responseTime / 1e3}s`;
       logObject.context = {
         data: {
           httpRequest
         }
       };
-      delete logObject.res
-      delete logObject.req
+      delete logObject.res;
+      delete logObject.req;
     }
 
     logObject.message = logObject.msg;
-    delete logObject.msg
+    delete logObject.msg;
 
     return JSON.stringify(logObject) + "\n";
   };
