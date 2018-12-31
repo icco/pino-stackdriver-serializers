@@ -50,6 +50,44 @@ function resSerializer(res) {
 }
 
 // https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry
+function sdPrettifier(options) {
+  return function prettifier(inputData) {
+    let logObject;
+    if (typeof inputData === "string") {
+      const parsedData = JSON.parse(inputData);
+      logObject = isPinoLog(parsedData) ? parsedData : undefined;
+    } else if (isObject(inputData) && isPinoLog(inputData)) {
+      logObject = inputData;
+    }
+
+    if (!logObject) return inputData;
+
+    logObject.severity = levels.labels[logObject.level];
+    logObject.timestamp = logObject.time;
+
+    if (logObject.res && logObject.req) {
+      logObject.context = {
+        data: {
+          httpRequest: Object.assign(
+            reqSerializer(logObject.req) || {},
+            resSerializer(logObject.res) || {}
+          )
+        }
+      };
+    }
+
+    return logObject;
+  };
+
+  function isObject(input) {
+    return Object.prototype.toString.apply(input) === "[object Object]";
+  }
+
+  function isPinoLog(log) {
+    return log && (log.hasOwnProperty("v") && log.v === 1);
+  }
+}
+
 const exp = {
   err: std_serial.err,
   mapHttpRequest: std_serial.mapHttpRequest,
@@ -57,31 +95,7 @@ const exp = {
   req: req,
   res: res,
   levels,
-  pretty: function(rawLog) {
-    let _log = {};
-    if (!isObject(inputData)) {
-      try {
-        _log = JSON.parse(rawLog);
-      } catch (err) {
-        // Ignore
-      }
-    } else {
-      _log = rawLog;
-    }
-
-    _log.severity = levels.labels[rawLog.level];
-    _log.timestamp = rawLog.time;
-
-    _log.context = {
-      data: {
-        httpRequest: Object.assign(
-          reqSerializer(rawLog.req) || {},
-          resSerializer(rawLog.res) || {}
-        )
-      }
-    };
-    return _log;
-  }
+  sdPrettifier
 };
 
 module.exports = exp;
