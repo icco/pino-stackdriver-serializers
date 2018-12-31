@@ -64,7 +64,8 @@ function sdPrettifier(options) {
     logObject.severity = levels.labels[logObject.level];
     delete logObject.level;
 
-    logObject.timestamp = Date.now().toISOString();
+    let now = new Date(logObject.time);
+    logObject.timestamp = now.toISOString();
     delete logObject.time;
 
     let httpRequest;
