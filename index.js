@@ -28,12 +28,11 @@ const levels = {
 };
 
 function reqSerializer(req) {
-  var connection = req.info || req.connection;
   const _req = {
     requestMethod: req.method,
-    requestUrl: req.url ? req.url.path || req.url : "",
+    requestUrl: `http://${req.headers["host"]}/${req.url}`,
     userAgent: req.headers["user-agent"],
-    remoteIp: connection && connection.remoteAddress,
+    remoteIp: req.remoteAddress,
     referer: req.headers["referer"]
   };
 
@@ -45,9 +44,8 @@ function reqSerializer(req) {
 function resSerializer(res) {
   const _res = {
     status: res.statusCode.toString(),
-    responseSize: res._headers && res._headers["content-length"]
+    responseSize: res.headers && res.headers["content-length"]
   };
-  _res.headers = res._headers;
 
   return _res;
 }
@@ -66,6 +64,8 @@ function sdPrettifier(options) {
     if (!logObject) return inputData;
 
     logObject.severity = levels.labels[logObject.level];
+    delete logObject.level;
+
     logObject.timestamp = logObject.time;
     delete logObject.time;
 
