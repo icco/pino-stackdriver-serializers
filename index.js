@@ -9,7 +9,13 @@ const levels = {
     30: "INFO",
     40: "WARNING",
     50: "ERROR",
-    60: "CRITICAL"
+    60: "CRITICAL",
+    "10": "DEBUG",
+    "20": "DEBUG",
+    "30": "INFO",
+    "40": "WARNING",
+    "50": "ERROR",
+    "60": "CRITICAL"
   },
   values: {
     fatal: 60,
@@ -65,16 +71,24 @@ function sdPrettifier(options) {
     logObject.severity = levels.labels[logObject.level];
     logObject.timestamp = logObject.time;
 
+    let httpRequest;
+    if (logObject.req && logObject.res) {
+      httpRequest = Object.assign(
+        reqSerializer(logObject.req),
+        resSerializer(logObject.res)
+      );
+      httpRequest.latency = `${Math.floor(logObject.responseTime / 1e3)}s`;
+    }
+
     if (logObject.res && logObject.req) {
       logObject.context = {
         data: {
-          httpRequest: Object.assign(
-            reqSerializer(logObject.req) || {},
-            resSerializer(logObject.res) || {}
-          )
+          httpRequest
         }
       };
     }
+
+    logObject.message = logObject.msg;
 
     return JSON.stringify(logObject) + "\n";
   };
