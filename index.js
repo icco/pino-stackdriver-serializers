@@ -92,8 +92,8 @@ const exp = {
   err: std_serial.err,
   mapHttpRequest: std_serial.mapHttpRequest,
   mapHttpResponse: std_serial.mapHttpResponse,
-  req: req,
-  res: res,
+  req: std_serial.req,
+  res: std_serial.res,
   levels,
   sdPrettifier
 };
