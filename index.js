@@ -76,7 +76,7 @@ function sdPrettifier(options) {
       };
     }
 
-    return logObject;
+    return JSON.stringify(logObject);
   };
 
   function isObject(input) {
