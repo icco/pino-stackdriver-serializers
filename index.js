@@ -30,13 +30,11 @@ const levels = {
 function reqSerializer(req) {
   const _req = {
     requestMethod: req.method,
-    requestUrl: `http://${req.headers["host"]}/${req.url}`,
+    requestUrl: `http://${req.headers["host"]}${req.url}`,
     userAgent: req.headers["user-agent"],
     remoteIp: req.remoteAddress,
     referer: req.headers["referer"]
   };
-
-  _req.headers = req.headers;
 
   return _req;
 }
