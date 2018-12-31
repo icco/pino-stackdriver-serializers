@@ -4,12 +4,12 @@ var std_serial = require("pino-std-serializers");
 
 const levels = {
   labels: {
-    "10": "DEBUG",
-    "20": "DEBUG",
-    "30": "INFO",
-    "40": "WARNING",
-    "50": "ERROR",
-    "60": "CRITICAL"
+    10: "DEBUG",
+    20: "DEBUG",
+    30: "INFO",
+    40: "WARNING",
+    50: "ERROR",
+    60: "CRITICAL"
   },
   values: {
     fatal: 60,
@@ -52,6 +52,7 @@ function resSerializer(res) {
 // https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry
 function sdPrettifier(options) {
   return function prettifier(inputData) {
+    console.log("called!")
     let logObject;
     if (typeof inputData === "string") {
       const parsedData = JSON.parse(inputData);
