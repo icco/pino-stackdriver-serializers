@@ -11,6 +11,6 @@
     "pino-std-serializers": "^2.3.0"
   },
   "devDependencies": {
-    "prettier": "^1.15.3"
+    "prettier": "^2.0.0"
   }
 }
