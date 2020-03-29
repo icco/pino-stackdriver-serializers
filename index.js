@@ -72,9 +72,17 @@ function sdFormatter() {
           resSerializer(object.res)
         );
         httpRequest.latency = `${object.responseTime / 1e3}s`;
-        ret.httpRequest = httpRequest;
+      } else {
+        if (object.req) {
+          httpRequest = Object.assign(reqSerializer(object.req));
+        }
+        if (object.res) {
+          httpRequest = Object.assign(resSerializer(object.res));
+          httpRequest.latency = `${object.responseTime / 1e3}s`;
+        }
       }
 
+      ret.httpRequest = httpRequest;
       ret.message = object.msg;
 
       return ret;
