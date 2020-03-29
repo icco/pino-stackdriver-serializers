@@ -15,7 +15,7 @@ const levels = {
     "30": "INFO",
     "40": "WARNING",
     "50": "ERROR",
-    "60": "CRITICAL"
+    "60": "CRITICAL",
   },
   values: {
     fatal: 60,
@@ -23,8 +23,8 @@ const levels = {
     warn: 40,
     info: 30,
     debug: 20,
-    trace: 10
-  }
+    trace: 10,
+  },
 };
 
 function reqSerializer(req) {
@@ -33,7 +33,7 @@ function reqSerializer(req) {
     requestUrl: req.url,
     userAgent: req.headers["user-agent"],
     remoteIp: req.remoteAddress,
-    referer: req.headers["referer"]
+    referer: req.headers["referer"],
   };
 
   return _req;
@@ -42,7 +42,7 @@ function reqSerializer(req) {
 function resSerializer(res) {
   const _res = {
     status: res.statusCode.toString(),
-    responseSize: res.headers && res.headers["content-length"]
+    responseSize: res.headers && res.headers["content-length"],
   };
 
   return _res;
@@ -93,7 +93,7 @@ function sdPrettifier(options) {
   }
 
   function isPinoLog(log) {
-    return log && (log.hasOwnProperty("v") && log.v === 1);
+    return log && log.hasOwnProperty("v") && log.v === 1;
   }
 }
 
@@ -104,7 +104,7 @@ const exp = {
   req: std_serial.req,
   res: std_serial.res,
   levels,
-  sdPrettifier
+  sdPrettifier,
 };
 
 module.exports = exp;
