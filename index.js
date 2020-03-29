@@ -50,12 +50,6 @@ function resSerializer(res) {
 
 function sdFormatter() {
   return {
-    level (label, number) {
-      return { level: number }
-    },
-    bindings (bindings) {
-      return { pid: bindings.pid, hostname: bindings.hostname }
-    },
     log (object) {
       object.severity = levels.labels[logObject.level];
 
@@ -73,6 +67,16 @@ function sdFormatter() {
       }
 
       object.message = object.msg;
+
+      // Delete unneeded fields.
+      delete object.level;
+      delete object.time;
+      delete object.res;
+      delete object.req;
+      delete object.responseTime;
+      delete object.msg;
+      delete object.v;
+
       return object
     }
   }
