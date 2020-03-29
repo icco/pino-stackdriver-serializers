@@ -52,9 +52,7 @@ function sdFormatter() {
   return {
     log (object) {
       object.severity = levels.labels[object.level];
-
-      let now = new Date(object.time);
-      object.timestamp = now.toISOString();
+      object.timestamp = new Date(object.time).toISOString();
 
       let httpRequest;
       if (object.req && object.res) {
@@ -70,7 +68,6 @@ function sdFormatter() {
 
       // Delete unneeded fields.
       delete object.level;
-      delete object.time;
       delete object.res;
       delete object.req;
       delete object.responseTime;
