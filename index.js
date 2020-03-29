@@ -51,8 +51,9 @@ function resSerializer(res) {
 function sdFormatter() {
   return {
     log (object) {
-      object.severity = levels.labels[object.level];
-      object.timestamp = new Date(object.time).toISOString();
+      let ret = {}
+      ret.severity = levels.labels[object.level];
+      ret.timestamp = new Date(object.time).toISOString();
 
       let httpRequest;
       if (object.req && object.res) {
@@ -61,20 +62,12 @@ function sdFormatter() {
           resSerializer(object.res)
         );
         httpRequest.latency = `${object.responseTime / 1e3}s`;
-        object.httpRequest = httpRequest;
+        ret.httpRequest = httpRequest;
       }
 
-      object.message = object.msg;
+      ret.message = object.msg;
 
-      // Delete unneeded fields.
-      delete object.level;
-      delete object.res;
-      delete object.req;
-      delete object.responseTime;
-      delete object.msg;
-      delete object.v;
-
-      return object
+      return ret
     }
   }
 }
