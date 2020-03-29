@@ -48,6 +48,36 @@ function resSerializer(res) {
   return _res;
 }
 
+function sdFormatter() {
+  return {
+    level (label, number) {
+      return { level: number }
+    },
+    bindings (bindings) {
+      return { pid: bindings.pid, hostname: bindings.hostname }
+    },
+    log (object) {
+      object.severity = levels.labels[logObject.level];
+
+      let now = new Date(object.time);
+      object.timestamp = now.toISOString();
+
+      let httpRequest;
+      if (object.req && object.res) {
+        httpRequest = Object.assign(
+          reqSerializer(object.req),
+          resSerializer(object.res)
+        );
+        httpRequest.latency = `${object.responseTime / 1e3}s`;
+        object.httpRequest = httpRequest;
+      }
+
+      object.message = object.msg;
+      return object
+    }
+  }
+}
+
 // https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry
 function sdPrettifier(options) {
   return function prettifier(inputData) {
@@ -105,6 +135,7 @@ const exp = {
   res: std_serial.res,
   levels,
   sdPrettifier,
+  sdFormatter,
 };
 
 module.exports = exp;
