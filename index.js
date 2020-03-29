@@ -53,7 +53,12 @@ function sdFormatter() {
     log(object) {
       let ret = {};
       ret.severity = levels.labels[object.level];
-      ret.timestamp = new Date(object.time).toISOString();
+
+      if (object.time) {
+        ret.timestamp = new Date(object.time).toISOString();
+      } else {
+        ret.timestamp = new Date(Date.now()).toISOString();
+      }
 
       let httpRequest;
       if (object.req && object.res) {
