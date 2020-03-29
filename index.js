@@ -54,7 +54,7 @@ function sdFormatter() {
       return { severity: levels.labels[number] };
     },
     bindings(bindings) {
-      return { hostname: bindings.hostname };
+      return {};
     },
     log(object) {
       let ret = {};
@@ -82,6 +82,8 @@ function sdFormatter() {
         }
       }
 
+      ret.req = object.req
+      ret.res = object.res
       ret.httpRequest = httpRequest;
       ret.message = object.msg;
 
