@@ -51,7 +51,7 @@ function resSerializer(res) {
 function sdFormatter() {
   return {
     log (object) {
-      object.severity = levels.labels[logObject.level];
+      object.severity = levels.labels[object.level];
 
       let now = new Date(object.time);
       object.timestamp = now.toISOString();
