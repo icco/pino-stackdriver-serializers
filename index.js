@@ -50,9 +50,14 @@ function resSerializer(res) {
 
 function sdFormatter() {
   return {
+    level(label, number) {
+      return { severity: levels.labels[number] };
+    },
+    bindings(bindings) {
+      return { hostname: bindings.hostname };
+    },
     log(object) {
       let ret = {};
-      ret.severity = levels.labels[object.level];
 
       if (object.time) {
         ret.timestamp = new Date(object.time).toISOString();
