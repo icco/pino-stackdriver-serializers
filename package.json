@@ -1,5 +1,5 @@
 {
-  "name": "pino-stackdriver-serializers",
+  "name": "@icco/pino-stackdriver-serializers",
   "version": "1.0.0",
   "description": "A set of serializers that stackdriver understands",
   "main": "index.js",
