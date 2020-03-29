@@ -65,25 +65,16 @@ function sdFormatter() {
         ret.timestamp = new Date(Date.now()).toISOString();
       }
 
-      let httpRequest;
-      if (object.req && object.res) {
-        httpRequest = Object.assign(
-          reqSerializer(object.req),
-          resSerializer(object.res)
-        );
+      let httpRequest = Object.assign(
+        reqSerializer(object.req),
+        resSerializer(object.res)
+      );
+      if (object.responseTime) {
         httpRequest.latency = `${object.responseTime / 1e3}s`;
-      } else {
-        if (object.req) {
-          httpRequest = Object.assign(reqSerializer(object.req));
-        }
-        if (object.res) {
-          httpRequest = Object.assign(resSerializer(object.res));
-          httpRequest.latency = `${object.responseTime / 1e3}s`;
-        }
       }
 
-      ret.req = object.req
-      ret.res = object.res
+      ret.req = object.req;
+      ret.res = object.res;
       ret.httpRequest = httpRequest;
       ret.message = object.msg;
 
