@@ -50,8 +50,8 @@ function resSerializer(res) {
 
 function sdFormatter() {
   return {
-    log (object) {
-      let ret = {}
+    log(object) {
+      let ret = {};
       ret.severity = levels.labels[object.level];
       ret.timestamp = new Date(object.time).toISOString();
 
@@ -67,9 +67,9 @@ function sdFormatter() {
 
       ret.message = object.msg;
 
-      return ret
-    }
-  }
+      return ret;
+    },
+  };
 }
 
 // https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry
