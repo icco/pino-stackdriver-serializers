@@ -68,25 +68,21 @@ function sdFormatter() {
         ret.timestamp = new Date(Date.now()).toISOString();
       }
 
-      if (object.res) {
-        console.log(object.res, object.res.req)
-
-        if (object.res && object.req) {
-          let httpRequest = {
-            requestMethod: object.req.method,
-            requestUrl: object.req.url,
-            userAgent: object.req.headers["user-agent"],
-            remoteIp: object.req.remoteAddress,
-            referer: object.req.headers["referer"],
-            status: object.res.statusCode.toString(),
-            responseSize: object.res.headers && object.res.headers["content-length"],
-          }
-
-          if (object.responseTime) {
-            httpRequest.latency = `${object.responseTime / 1e3}s`;
-          }
-          ret.httpRequest = httpRequest;
+      if (object.res && object.res.req) {
+        let httpRequest = {
+          requestMethod: object.res.req.method,
+          requestUrl: object.res.req.url,
+          userAgent: object.res.req.headers["user-agent"],
+          remoteIp: object.res.req.remoteAddress,
+          referer: object.res.req.headers["referer"],
+          status: object.res.statusCode.toString(),
+          responseSize: object.res.headers && object.res.headers["content-length"],
         }
+
+        if (object.responseTime) {
+          httpRequest.latency = `${object.responseTime / 1e3}s`;
+        }
+        ret.httpRequest = httpRequest;
       }
 
       ret.req = object.req;
