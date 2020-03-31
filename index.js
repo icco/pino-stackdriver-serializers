@@ -28,24 +28,27 @@ const levels = {
 };
 
 function reqSerializer(req) {
-  const _req = {
-    requestMethod: req.method,
-    requestUrl: req.url,
-    userAgent: req.headers["user-agent"],
-    remoteIp: req.remoteAddress,
-    referer: req.headers["referer"],
-  };
-
-  return _req;
+  if (req) {
+    return {
+      requestMethod: req.method,
+      requestUrl: req.url,
+      userAgent: req.headers["user-agent"],
+      remoteIp: req.remoteAddress,
+      referer: req.headers["referer"],
+    };
+  }
+  return {}
 }
 
 function resSerializer(res) {
-  const _res = {
-    status: res.statusCode.toString(),
-    responseSize: res.headers && res.headers["content-length"],
-  };
+  if (res) {
+    return {
+      status: res.statusCode.toString(),
+      responseSize: res.headers && res.headers["content-length"],
+    };
+  }
 
-  return _res;
+  return {};
 }
 
 function sdFormatter() {
