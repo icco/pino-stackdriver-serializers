@@ -71,6 +71,7 @@ function sdFormatter() {
       let res = resSerializer(object.res);
       let req = reqSerializer(object.req);
       let httpRequest = Object.assign(req, res);
+      console.log(req, res, httpRequest)
 
       if (object.responseTime) {
         httpRequest.latency = `${object.responseTime / 1e3}s`;
