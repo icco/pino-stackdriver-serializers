@@ -68,14 +68,13 @@ function sdFormatter() {
         ret.timestamp = new Date(Date.now()).toISOString();
       }
 
-      console.log(object.req, object.res, object.res.req)
-      if (object.req && object.res) {
+      if (object.res) {
         let httpRequest = {
-          requestMethod: object.req.method,
-          requestUrl: object.req.url,
-          userAgent: object.req.headers["user-agent"],
-          remoteIp: object.req.remoteAddress,
-          referer: object.req.headers["referer"],
+          requestMethod: object.res.method,
+          requestUrl: object.res.url,
+          userAgent: object.res.headers["user-agent"],
+          remoteIp: object.res.remoteAddress,
+          referer: object.res.headers["referer"],
           status: object.res.statusCode.toString(),
           responseSize: object.res.headers["content-length"],
         }
