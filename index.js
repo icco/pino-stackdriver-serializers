@@ -68,8 +68,8 @@ function sdFormatter() {
         ret.timestamp = new Date(Date.now()).toISOString();
       }
 
-      let res = resSerializer(object.res);
-      let req = reqSerializer(object.req);
+      let req = Object.assign({}, reqSerializer(object.req))
+      let res = Object.assign({}, resSerializer(object.res))
       let httpRequest = Object.assign(req, res);
       console.log(req, res, httpRequest)
 
