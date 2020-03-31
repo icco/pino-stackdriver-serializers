@@ -27,6 +27,9 @@
     "prettier": "^2.0.2",
     "webpack-cli": "^3.3.5"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "peerDependencies": {
     "pino": "6.x"
   }
