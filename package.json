@@ -1,6 +1,6 @@
 {
   "name": "@icco/pino-stackdriver-serializers",
-  "version": "2020.3.31-5",
+  "version": "2020.3.31-6",
   "description": "A set of serializers that stackdriver understands",
   "main": "index.js",
   "repository": "git@github.com:icco/pino-stackdriver-serializers.git",
