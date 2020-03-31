@@ -3,7 +3,8 @@ node_js:
 - stable
 script: yarn run build
 deploy:
-  skip_cleanup: true
+  edge: true
+  cleanup: false
   provider: npm
   email: nat@natwelch.com
   api_key:
