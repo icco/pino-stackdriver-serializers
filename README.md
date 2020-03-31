@@ -1,6 +1,6 @@
 # @icco/pino-stackdriver-serializers
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/icco/pino-stackdriver-serializers.svg)](https://greenkeeper.io/) [![Build Status](https://travis-ci.com/icco/pino-stackdriver-serializers.svg?branch=master)](https://travis-ci.com/icco/pino-stackdriver-serializers)
+[![Greenkeeper badge](https://badges.greenkeeper.io/icco/pino-stackdriver-serializers.svg)](https://greenkeeper.io/) [![Build Status](https://travis-ci.com/icco/pino-stackdriver-serializers.svg?branch=master)](https://travis-ci.com/icco/pino-stackdriver-serializers) [![npm version](https://badge.fury.io/js/%40icco%2Fpino-stackdriver-serializers.svg)](https://badge.fury.io/js/%40icco%2Fpino-stackdriver-serializers)
 
 Pino messaging formatting for Stackdriver.
 
