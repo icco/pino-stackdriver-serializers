@@ -68,8 +68,8 @@ function sdFormatter() {
         ret.timestamp = new Date(Date.now()).toISOString();
       }
 
+      console.log(object.req, object.res)
       if (object.req && object.res) {
-        console.log(object)
         let httpRequest = {
           requestMethod: object.req.method,
           requestUrl: object.req.url,
