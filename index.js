@@ -76,8 +76,7 @@ function sdFormatter() {
           remoteIp: object.res.req.remoteAddress,
           referer: object.res.req.headers["referer"],
           status: object.res.statusCode.toString(),
-          responseSize:
-            object.res.headers && object.res.headers["content-length"],
+          responseSize: object.res.headers["content-length"],
         };
 
         if (object.responseTime) {
