@@ -1,5 +1,5 @@
 {
-  "name": "pino-stackdriver-serializers",
+  "name": "@icco/pino-stackdriver-serializers",
   "version": "1.0.0",
   "description": "A set of serializers that stackdriver understands",
   "main": "index.js",
@@ -8,9 +8,26 @@
   "license": "MIT",
   "private": false,
   "dependencies": {
-    "pino-std-serializers": "^2.3.0"
+    "pino-std-serializers": "^2.3.0",
+    "webpack": "^4.35.0"
+  },
+  "scripts": {
+    "start": "webpack --watch",
+    "build": "webpack"
+  },
+  "prettier": {
+    "trailingComma": "es5"
   },
   "devDependencies": {
-    "prettier": "^2.0.2"
+    "@babel/cli": "^7.7",
+    "@babel/core": "^7.7",
+    "@babel/plugin-proposal-object-rest-spread": "^7.6",
+    "@babel/preset-env": "^7.7",
+    "babel-loader": "^8.0.6",
+    "prettier": "^2.0.2",
+    "webpack-cli": "^3.3.5"
+  },
+  "peerDependencies": {
+    "pino": "6.x"
   }
 }

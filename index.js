@@ -15,7 +15,7 @@ const levels = {
     "30": "INFO",
     "40": "WARNING",
     "50": "ERROR",
-    "60": "CRITICAL"
+    "60": "CRITICAL",
   },
   values: {
     fatal: 60,
@@ -23,29 +23,75 @@ const levels = {
     warn: 40,
     info: 30,
     debug: 20,
-    trace: 10
-  }
+    trace: 10,
+  },
 };
 
 function reqSerializer(req) {
-  const _req = {
-    requestMethod: req.method,
-    requestUrl: req.url,
-    userAgent: req.headers["user-agent"],
-    remoteIp: req.remoteAddress,
-    referer: req.headers["referer"]
-  };
-
-  return _req;
+  if (req) {
+    return {
+      requestMethod: req.method,
+      requestUrl: req.url,
+      userAgent: req.headers["user-agent"],
+      remoteIp: req.remoteAddress,
+      referer: req.headers["referer"],
+    };
+  }
+  return {};
 }
 
 function resSerializer(res) {
-  const _res = {
-    status: res.statusCode.toString(),
-    responseSize: res.headers && res.headers["content-length"]
-  };
+  if (res) {
+    return {
+      status: res.statusCode.toString(),
+      responseSize: res.headers && res.headers["content-length"],
+    };
+  }
 
-  return _res;
+  return {};
+}
+
+function sdFormatter() {
+  return {
+    level(label, number) {
+      return { severity: levels.labels[number] };
+    },
+    bindings(bindings) {
+      return {};
+    },
+    log(object) {
+      let ret = {};
+
+      if (object.time) {
+        ret.timestamp = new Date(object.time).toISOString();
+      } else {
+        ret.timestamp = new Date(Date.now()).toISOString();
+      }
+
+      if (object.res && object.res.req) {
+        let httpRequest = {
+          requestMethod: object.res.req.method,
+          requestUrl: object.res.req.url,
+          userAgent: object.res.req.headers["user-agent"],
+          remoteIp: object.res.req.remoteAddress,
+          referer: object.res.req.headers["referer"],
+          status: object.res.statusCode.toString(),
+          responseSize: object.res.headers["content-length"],
+        };
+
+        if (object.responseTime) {
+          httpRequest.latency = `${object.responseTime / 1e3}s`;
+        }
+        ret.httpRequest = httpRequest;
+      }
+
+      ret.req = object.req;
+      ret.res = object.res;
+      ret.message = object.msg;
+
+      return ret;
+    },
+  };
 }
 
 // https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry
@@ -93,7 +139,7 @@ function sdPrettifier(options) {
   }
 
   function isPinoLog(log) {
-    return log && (log.hasOwnProperty("v") && log.v === 1);
+    return log && log.hasOwnProperty("v") && log.v === 1;
   }
 }
 
@@ -104,7 +150,8 @@ const exp = {
   req: std_serial.req,
   res: std_serial.res,
   levels,
-  sdPrettifier
+  sdPrettifier,
+  sdFormatter,
 };
 
 module.exports = exp;
