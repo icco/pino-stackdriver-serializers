@@ -37,7 +37,7 @@ function reqSerializer(req) {
       referer: req.headers["referer"],
     };
   }
-  return {}
+  return {};
 }
 
 function resSerializer(res) {
@@ -68,15 +68,9 @@ function sdFormatter() {
         ret.timestamp = new Date(Date.now()).toISOString();
       }
 
-      let httpRequest = {};
-      httpRequest = Object.assign(
-        httpRequest,
-        resSerializer(object.res)
-      );
-      httpRequest = Object.assign(
-        httpRequest,
-        reqSerializer(object.req)
-      );
+      let res = resSerializer(object.res);
+      let req = reqSerializer(object.req);
+      let httpRequest = Object.assign(req, res);
 
       if (object.responseTime) {
         httpRequest.latency = `${object.responseTime / 1e3}s`;
