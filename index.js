@@ -76,8 +76,11 @@ function sdFormatter() {
           remoteIp: object.res.req.remoteAddress,
           referer: object.res.req.headers["referer"],
           status: object.res.statusCode.toString(),
-          responseSize: object.res.headers["content-length"],
         };
+
+        if (object.res.headers) {
+          httpRequest.responseSize = object.res.headers["content-length"];
+        }
 
         if (object.responseTime) {
           httpRequest.latency = `${object.responseTime / 1e3}s`;
